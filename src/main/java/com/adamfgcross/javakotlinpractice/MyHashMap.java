@@ -1,4 +1,4 @@
-package com.adamfgcross.demospringmay82;
+package com.adamfgcross.javakotlinpractice;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,7 +9,7 @@ public class MyHashMap<T> {
     List<List<T>> elts;
     int size;
 
-    public MyHashMap (int size) {
+    public MyHashMap(int size) {
         this.size = size;
 
         while (!checkIsPrime(size)) {
