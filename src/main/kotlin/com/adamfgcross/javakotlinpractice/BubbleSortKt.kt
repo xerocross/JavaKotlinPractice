@@ -2,7 +2,7 @@ package com.adamfgcross.javakotlinpractice
 
 class BubbleSortKt : SortingMethod {
 
-    fun bubbleSort(lst: IntArray?) {
+    private fun bubbleSort(lst: IntArray?) {
         if (lst == null) {
             return;
         }

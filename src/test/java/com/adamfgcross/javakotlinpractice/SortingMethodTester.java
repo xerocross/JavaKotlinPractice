@@ -36,7 +36,8 @@ public class SortingMethodTester {
                 new SortingMethodForTest("QuickSort", new QuickSort()),
                 new SortingMethodForTest("MergeSort", new MergeSortKt()),
                 new SortingMethodForTest("BubbleSort", new BubbleSortKt()),
-                new SortingMethodForTest("SelectionSort", new SelectionSortKt())
+                new SortingMethodForTest("SelectionSort", new SelectionSortKt()),
+                new SortingMethodForTest("InsertionSort", new InsertionSortKt())
         );
     }
 

@@ -7,7 +7,7 @@ class MergeSortKt :SortingMethod {
         mergeSort(array);
     }
 
-    fun mergeSort(arr: IntArray?) {
+    private fun mergeSort(arr: IntArray?) {
         if (arr == null)
             return;
         val workingArr = Array<Int>(size = arr.size) { 0 };
