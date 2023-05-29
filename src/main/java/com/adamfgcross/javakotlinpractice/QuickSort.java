@@ -62,6 +62,8 @@ public class QuickSort implements SortingMethod {
     }
 
     public static void quickSort(int[] input) {
+        if (input == null)
+            return;
         quickSort(input,0,input.length - 1);
         // quickSort is designed so that si and ei are
         // inclusive, [si, ei]

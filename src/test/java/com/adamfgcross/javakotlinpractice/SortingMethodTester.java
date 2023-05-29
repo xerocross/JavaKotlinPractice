@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SortTest {
+public class SortingMethodTester {
 
     @Parameterized.Parameter
     public SortingMethodForTest sortingMethodForTest;
@@ -35,7 +35,8 @@ public class SortTest {
         return Arrays.asList(
                 new SortingMethodForTest("QuickSort", new QuickSort()),
                 new SortingMethodForTest("MergeSort", new MergeSortKt()),
-                new SortingMethodForTest("BubbleSort", new BubbleSortKt())
+                new SortingMethodForTest("BubbleSort", new BubbleSortKt()),
+                new SortingMethodForTest("SelectionSort", new SelectionSortKt())
         );
     }
 
@@ -47,6 +48,34 @@ public class SortTest {
         return true;
     }
 
+    @DisplayName("Sorts a list of 1 element.")
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("data")
+    public void testSortsOneElement(SortingMethodForTest sortingMethodForTest) {
+        int[] input = {5};
+        int[] expectedOutput = {5};
+        sortingMethodForTest.sortingMethod.sort(input);
+        assertArrayEquals(expectedOutput, input);
+    }
+
+    @DisplayName("Sorts empty array.")
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("data")
+    public void testSortsEmptyArray(SortingMethodForTest sortingMethodForTest) {
+        int[] input = {};
+        int[] expectedOutput = {};
+        sortingMethodForTest.sortingMethod.sort(input);
+        assertArrayEquals(expectedOutput, input);
+    }
+
+    @DisplayName("Can handle null input.")
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("data")
+    public void testNullDoesNotThrow(SortingMethodForTest sortingMethodForTest) {
+        assertDoesNotThrow(()->{
+            sortingMethodForTest.sortingMethod.sort(null);
+        });
+    }
 
     @DisplayName("Sorts a short list of positive integers (1).")
     @ParameterizedTest(name = "{0}")
