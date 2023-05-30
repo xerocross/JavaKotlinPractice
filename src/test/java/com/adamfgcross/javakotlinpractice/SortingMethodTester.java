@@ -5,6 +5,10 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runners.Parameterized;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 import java.util.Arrays;
@@ -248,6 +252,40 @@ public class SortingMethodTester {
     public void testSort40EltArray1(SortingMethodForTest sortingMethodForTest) {
         int[] input = {496, 683, 806, 633, 784, 560, 157, 457, 633, 237, 838, 187, 521, 478, 240, 957, 840, 73, 904, 879, 377, 335, 274, 728, 679, 722, 847, 635, 480, 285, 159, 497, 153, 169, 412, 610, 640, 718, 292, 955};
         int[] expectedOutput = {73, 153, 157, 159, 169, 187, 237, 240, 274, 285, 292, 335, 377, 412, 457, 478, 480, 496, 497, 521, 560, 610, 633, 633, 635, 640, 679, 683, 718, 722, 728, 784, 806, 838, 840, 847, 879, 904, 955, 957};
+        sortingMethodForTest.sortingMethod.sort(input);
+        assertArrayEquals(expectedOutput, input);
+    }
+
+    private class LargeNumberFileReader {
+        public int[] readNumbersFromFile(String name) {
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream(name);
+            if (inputStream != null) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                    String line = reader.readLine();
+                    if (line != null) {
+                        String[] numberStrings = line.split("\\s*,\\s*");
+                        int[] numbers = Arrays.stream(numberStrings)
+                                .mapToInt(Integer::parseInt)
+                                .toArray();
+                        return numbers;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return new int[0];
+        }
+    }
+
+    @DisplayName("Sorts a 10_000 integer array")
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("data")
+    public void testSort10_000Integers(SortingMethodForTest sortingMethodForTest) {
+        LargeNumberFileReader largeNumberFileReader = new LargeNumberFileReader();
+        int[] input = largeNumberFileReader.readNumbersFromFile("tenThousandNumbers.txt");
+        int[] expectedOutput = largeNumberFileReader.readNumbersFromFile("tenThousandAscending.txt");
         sortingMethodForTest.sortingMethod.sort(input);
         assertArrayEquals(expectedOutput, input);
     }
