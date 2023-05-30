@@ -1,21 +1,10 @@
 package com.adamfgcross.javakotlinpractice
 
-class MaxHeapKt() {
-    private val heapArray : MutableList<Int> = ArrayList<Int>()
-    init {
-        heapArray.add(0); // meaningless index 0
-    }
+class MaxHeapKt() : Heap() {
     constructor(rootVal : Int) : this() {
         heapArray.add(rootVal); // at index 1
     }
-
-    private fun swap(x : Int, y : Int) {
-        val temp = heapArray[x]
-        heapArray[x] = heapArray[y]
-        heapArray[y] = temp
-    }
-
-    fun add(value: Int) {
+    override fun insert(value: Int) {
         heapArray.add(value);
         var workingIndex = heapArray.size - 1
         while (workingIndex > 1) {
@@ -28,7 +17,7 @@ class MaxHeapKt() {
         }
     }
 
-    fun reHeap(parent: Int?) {
+    override fun reHeap(parent: Int?) {
         if (parent == null)
             return;
         val left = parent * 2;
@@ -49,16 +38,9 @@ class MaxHeapKt() {
         }
     }
 
-    fun pick() : Int {
-        val returnVal = heapArray[1]
-        val finalIndex = heapArray.size - 1
-        heapArray[1] = heapArray[finalIndex];
-        heapArray.removeAt(finalIndex);
-        reHeap(1)
-        return returnVal
-    }
-
-    fun getRoot() : Int {
-        return heapArray[1];
+    private fun swap(x : Int, y : Int) {
+        val temp = heapArray[x]
+        heapArray[x] = heapArray[y]
+        heapArray[y] = temp
     }
 }
